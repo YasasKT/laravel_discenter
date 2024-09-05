@@ -7,6 +7,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Sidebar from "./components/sidebar";
 import Header from "./components/header";
+import Footer from "./components/footer";
 import React, { useState } from "react";
 
 config.autoAddCss = false;
@@ -34,9 +35,9 @@ export default function RootLayout({
       <body className={inter.className}>
       <Sidebar sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
         <div className="page-content">
-        <Header toggleSidebar={toggleSidebar} />
-          
+        <Header toggleSidebar={toggleSidebar} />  
           <main className="main-content">{children}</main>
+          <Footer />
         </div>
       </body>
     </html>

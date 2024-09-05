@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "../css/Sidebar.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faXmark,
-  faSearch,
-  faPlus,
-  faChevronDown,
-  faCartShopping,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+  FaTimes,
+  FaSearch,
+  FaPlus,
+  FaChevronDown,
+  FaShoppingCart,
+  FaChevronRight,
+  FaHeadset,
+  FaHeart,
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+} from "react-icons/fa";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -23,7 +27,6 @@ interface Category {
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // Example categories data
@@ -40,20 +43,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
       { id: "10", name: "Appliances", parent_id: "3" },
     ];
 
-    // Fetch categories from your API (commented out for example purposes)
-    // const fetchCategories = async () => {
-    //   try {
-    //     const response = await fetch("/api/categories"); // Adjust the API endpoint as needed
-    //     const data = await response.json();
-    //     setCategories(data);
-    //   } catch (error) {
-    //     console.error("Error fetching categories:", error);
-    //   }
-    // };
-
     // Set example categories data
     setCategories(exampleCategories);
-    // fetchCategories();
   }, []);
 
   useEffect(() => {
@@ -101,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
               className="more"
               onClick={(e) => handleToggle(e, subCategory.id)}
             >
-              <FontAwesomeIcon icon={faPlus} className="fas fa-plus" />
+              <FaPlus />
             </div>
             <ul className="sub-subcategories">
               {renderSubCategories(subCategory.id)}
@@ -115,11 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
   return (
     <>
       <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        <FontAwesomeIcon
-          icon={faXmark}
-          className="fa-xmark"
-          onClick={toggleSidebar}
-        />
+        <FaTimes className="fa-xmark" onClick={toggleSidebar} />
         {/* Sidebar content here */}
 
         <div className="search-bar">
@@ -132,17 +119,18 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
             maxLength={100}
             required
           />
-          <FontAwesomeIcon icon={faSearch} className="fas fa-search" />
+          <button>
+            <FaSearch size={18}/>
+          </button>
         </div>
 
         <div className="info-container">
           <div className="info-bar">
-            <i className="fa-solid fa-headset"></i>
+            <FaHeadset size={25}/>
             <div className="info-text">
               <span className="info-subheading">Customer Support</span>
               <span className="info-heading">071 040 9000</span>
             </div>
-            <i className="fa-solid fa-chevron-down"></i>
           </div>
           <br />
           <div className="info-details">
@@ -158,7 +146,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
           <li>
             <a href="shop.php">Shop</a>
             <div className="more">
-              <FontAwesomeIcon icon={faPlus} className="fas fa-plus" />
+              <FaPlus/>
             </div>
           </li>
           <li className="cat">
@@ -167,7 +155,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
               className="more"
               onClick={(e) => handleToggle(e, "categories")}
             >
-              <FontAwesomeIcon icon={faPlus} className="fas fa-plus" />
+              <FaPlus />
             </div>
           </li>
           {renderSubCategories("0")}{" "}
@@ -188,24 +176,28 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
 
         <ul className="fixed">
           <li>
-            <i className="fas fa-heart"></i>
+            <span className="icon-wishcart">
+              <FaHeart size={20}/>
+            </span>
             <a href="wishlist.php">Wishlist</a>
           </li>
           <li>
-            <i className="fa-solid fa-cart-shopping"></i>
+            <span className="icon-wishcart">
+              <FaShoppingCart size={20}/>
+            </span>
             <a href="cart.php">Cart</a>
           </li>
         </ul>
 
         <ul className="socials">
           <li className="facebook">
-            <i className="fa-brands fa-facebook-f"></i>
+            <FaFacebookF />
           </li>
           <li className="insta">
-            <i className="fa-brands fa-instagram"></i>
+            <FaInstagram />
           </li>
           <li className="tiktok">
-            <i className="fa-brands fa-tiktok"></i>
+            <FaTiktok />
           </li>
         </ul>
       </div>
