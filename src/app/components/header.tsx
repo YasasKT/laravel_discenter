@@ -186,6 +186,11 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
                       <FontAwesomeIcon icon={faChevronRight} /> My account
                     </a>
                   </li>
+                  <li>
+                    <a href="/orders">
+                      <FontAwesomeIcon icon={faChevronRight} /> My Orders
+                    </a>
+                  </li>
                 </ul>
               </div>
             </li>

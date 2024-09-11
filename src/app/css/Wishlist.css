@@ -1,0 +1,80 @@
+/* Wishlist Container */
+.wishlist-container {
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 100%;
+}
+
+/* Header Row for Labels */
+.wishlist-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 2px solid #ccc;
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+
+/* Control the width of each header item */
+.header-item {
+    flex-basis: 33%; /* Distribute the width equally */
+    text-align: left;
+    padding-left: 10px;
+}
+
+.header-item-stock {
+    flex-basis: 33%;
+    text-align: left;
+    color: transparent;
+}
+
+/* Align Product Info with Header */
+.wishlist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Product Image */
+.wishlist-item img {
+    width: 100px;
+    height: 100px;
+}
+
+/* Product Details */
+.wishlist-product-details {
+    flex-basis: 33%; /* Match the width of the header */
+    margin-left: 20px;
+    text-align: left;
+}
+
+.product-info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Unit Price */
+.wishlist-price {
+    flex-basis: 33%; /* Match the width of the header */
+    text-align: left;
+}
+
+/* Stock Status */
+.wishlist-stock-status {
+    flex-basis: 33%; /* Match the width of the header */
+    text-align: left;
+}
+
+/* Action Buttons */
+.wishlist-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}

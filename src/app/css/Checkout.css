@@ -1,0 +1,173 @@
+/* General Checkout Page Styling */
+.checkout {
+    max-width: 1000px; /* Increased width */
+    margin: 40px auto;
+    padding: 40px; /* Increased padding */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Heading */
+h2 {
+    font-size: 28px; /* Larger heading */
+    color: #333;
+    margin-bottom: 30px; /* More space below */
+    text-align: center; /* Center heading */
+}
+
+h3 {
+    font-size: 22px; /* Slightly larger subheading */
+    color: #555;
+    margin-bottom: 20px; /* Increased margin */
+}
+
+.card-selection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns for each card type */
+    gap: 20px; /* Space between card options */
+    padding: 20px;
+    margin-bottom: 40px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    border: 1px solid #e68540;
+}
+
+.card-selection label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 120px; /* Ensure all cards have a minimum width */
+}
+
+/* Make sure to hide the input radio button */
+.card-selection input[type="radio"] {
+    display: none;
+}
+
+
+/* Visa Card Styling */
+.card-selection label[for="Visa"] {
+    background: linear-gradient(135deg, #fefbfa, #1a73e8); /* Visa color theme */
+    color: #fff;
+}
+
+/* MasterCard Card Styling */
+.card-selection label[for="MasterCard"] {
+    background: linear-gradient(135deg, #f79e1b, #ff3d00); /* MasterCard color theme */
+    color: #fff;
+}
+
+/* American Express Card Styling */
+.card-selection label[for="AmericanExpress"] {
+    background: linear-gradient(135deg, #006fcf, #1d4b8f); /* Amex color theme */
+    color: #fff;
+}
+
+/* Hover and Focus Effect */
+.card-selection label:hover {
+    transform: scale(1.05); /* Slightly scale up on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Add shadow */
+}
+
+/* Active/Selected Card Style */
+.card-selection input[type="radio"]:checked + label {
+    border: 2px solid #e96709; /* Highlight selected card */
+    transform: scale(1.05);
+}
+
+/* Card Logos */
+.card-logo {
+    margin-bottom: 10px;
+    font-size: 50px; /* Adjust icon size */
+}
+
+/* Payment Form Section */
+.payment-form {
+    border: 1px solid #e68540;
+    border-radius: 8px;
+    padding: 30px; /* Increased padding */
+    background-color: #f9f9f9;
+    margin-bottom: 40px; /* Increased margin for spacing */
+}
+
+.payment-form h3 {
+    margin-bottom: 4rem;
+}
+
+.payment-form form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Create two columns for better form layout */
+    gap: 20px; /* Spacing between input rows */
+}
+
+.input-row {
+    margin-bottom: 20px;
+    grid-column: span 2; /* Make each input field span both columns */
+}
+
+.input-row label {
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 14px; /* Increased padding */
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #e96709;
+    box-shadow: 0 0 5px rgba(233, 103, 9, 0.5);
+    outline: none;
+}
+
+/* Submit Button */
+.submit-payment-btn {
+    background-color: #e96709;
+    color: white;
+    padding: 18px; /* Larger padding */
+    border: none;
+    border-radius: 8px; /* More rounded */
+    cursor: pointer;
+    font-size: 18px; /* Larger font */
+    transition: background-color 0.3s ease;
+    grid-column: span 2; /* Make the button span across both columns */
+}
+
+.submit-payment-btn:hover {
+    background-color: #e68540;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .checkout {
+        padding: 20px; /* Reduced padding on mobile */
+    }
+
+    .payment-form form {
+        grid-template-columns: 1fr; /* Single column layout on mobile */
+    }
+
+    .submit-payment-btn {
+        grid-column: span 1;
+    }
+}

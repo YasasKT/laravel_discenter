@@ -1,0 +1,120 @@
+.who-we-are-section {
+    display: flex;
+    align-items: self-start;
+    justify-content: space-between;
+    margin-top: 10rem;
+    padding: 5rem;
+    height: 600px;
+}
+  
+.who-we-are-content {
+    padding-left: 20rem;
+    width: 50%;
+    padding-right: 10rem;
+}
+  
+.who-we-are-content h2 {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    color: #E68540; /* Orange color */
+}
+  
+.who-we-are-content p {
+    font-size: 2rem;
+    padding-right: 10rem;
+    color: #555;
+}
+  
+.who-we-are-image-container {
+    width: 50%;
+    position: relative;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 5rem;
+}
+  
+.who-we-are-image {
+    border-radius: 10px;
+}
+  
+/* Why Choose Us Section */
+.why-choose-us-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5rem;
+    padding-left: 20rem;
+}
+  
+.why-choose-us-content {
+    width: 50%;
+    padding: 2rem;
+    padding-right: 10rem;
+}
+  
+.why-choose-us-content h2 {
+    font-size: 5rem;
+    color: #E68540;
+    margin-bottom: 1.5rem;
+}
+  
+.why-choose-us-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+  
+.why-choose-us-content li {
+    display: flex;
+    align-items: left;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    color: #555;
+    line-height: 1.6;
+}
+  
+.why-choose-us-content strong {
+    color: #333;
+    width: 400px;
+    padding-right: 4rem;
+}
+
+.why-choose-us-content li span {
+    width: 500px;
+}
+
+  
+.check-icon {
+    color: #E96709; /* Orange tick color */
+    margin-right: 1rem;
+    font-size: 2.8rem;
+}
+  
+.why-choose-us-image {
+    position: relative;
+    width: 50%;
+    height: 750px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .who-we-are-section {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .who-we-are-content, .who-we-are-image-container {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .why-choose-us-section {
+        flex-direction: column;
+      }
+    
+    .why-choose-us-content, .why-choose-us-image {
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+}

@@ -1,0 +1,15 @@
+.filter-bar-container {
+    display: flex;
+    justify-content: space-between; /* Ensure space between the price filter and dropdowns */
+    align-items: center; /* Vertically aligns both components in the center */
+    padding: 2rem 5rem; /* Adjust padding as needed */
+    width: 100%; /* Full-width to align both components */
+    box-sizing: border-box; /* Include padding in element's total width */
+}
+
+@media screen and (max-width: 768px) {
+    .filter-bar-container {
+        flex-direction: column; /* Stack the elements on smaller screens */
+        align-items: flex-start; /* Align them to the start when stacked */
+    }
+}

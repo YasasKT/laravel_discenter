@@ -1,0 +1,67 @@
+.site-header-overlay {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    z-index: 1;
+}
+
+.site-header-overlay .bg-image {
+    object-fit: cover;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: auto;
+}
+
+.site-header-overlay .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.site-header-overlay .page-title {
+    padding-left: 5rem;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    text-align: left;
+    color: white;
+    z-index: 3;
+}
+
+.site-header-overlay .links {
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-align: right;
+    color: white;
+    z-index: 3;
+}
+
+.site-header-overlay .links .home {
+    color: white;
+}
+
+.site-header-overlay .links .home:hover {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.site-header-overlay .links .page-name {
+    color: rgba(255, 255, 255, 0.5);
+}
