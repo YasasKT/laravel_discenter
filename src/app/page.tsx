@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import HeroSection from "./components/heroSlide";
-import Categories from "./components/Categories";
-import FeaturedProducts from "./components/featuredProducts";
-import TopChoices from "./components/topChoices";
+import HeroSection from "@/components/heroSlide";
+import Categories from "@/components/Categories";
+import FeaturedProducts from "@/components/featuredProducts";
+import TopChoices from "@/components/topChoices";
 
 
 const featuredProducts = [

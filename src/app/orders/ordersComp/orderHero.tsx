@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import HeroImage from '../../img/home-appliances.jpg';
-import '../../css/Hero.css';
+import HeroImage from '@/img/home-appliances.jpg';
+import '@/css/Hero.css';
 
 const CartHero: React.FC = () => {
     const [offsetY, setOffsetY] = useState(0);

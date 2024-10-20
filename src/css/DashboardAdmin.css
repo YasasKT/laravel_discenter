@@ -1,0 +1,349 @@
+.dashboard-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-page h1 {
+    font-size: 3rem;
+    padding: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.dashboard-page h1::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    width: 80%;
+    height: 0.2rem;
+    background-color: #e96709;
+    transform: translateY(-50%);
+}
+
+.overview {
+    padding: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.overview-card {
+    width: 100%;
+    background: hsla(39, 100%, 77%, 1);
+    background: linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FFD78A", endColorstr="#F4762D", GradientType=1 );
+    border-radius: 1.5rem;
+    padding: 1rem;
+}
+
+.overview-card2 {
+    width: 100%;
+    background: hsla(14, 93%, 53%, 1);
+    background: linear-gradient(90deg, hsla(14, 93%, 53%, 1) 0%, hsla(30, 84%, 58%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(14, 93%, 53%, 1) 0%, hsla(30, 84%, 58%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(14, 93%, 53%, 1) 0%, hsla(30, 84%, 58%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#F64C18", endColorstr="#EE9539", GradientType=1 );
+    border-radius: 1.5rem;
+    padding: 1rem;
+}
+
+.overview-card3 {
+    width: 100%;
+    background: hsla(69, 80%, 76%, 1);
+
+background: linear-gradient(90deg, hsla(69, 80%, 76%, 1) 0%, hsla(23, 68%, 67%, 1) 50%, hsla(331, 58%, 60%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, hsla(69, 80%, 76%, 1) 0%, hsla(23, 68%, 67%, 1) 50%, hsla(331, 58%, 60%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, hsla(69, 80%, 76%, 1) 0%, hsla(23, 68%, 67%, 1) 50%, hsla(331, 58%, 60%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E5F392", endColorstr="#E49E71", GradientType=1 );
+    border-radius: 1.5rem;
+    padding: 1rem;
+}
+
+.overview-card4 {
+    width: 100%;
+    background: hsla(324, 91%, 46%, 1);
+
+background: linear-gradient(90deg, hsla(324, 91%, 46%, 1) 0%, hsla(18, 100%, 49%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, hsla(324, 91%, 46%, 1) 0%, hsla(18, 100%, 49%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, hsla(324, 91%, 46%, 1) 0%, hsla(18, 100%, 49%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E20B8C", endColorstr="#F84B00", GradientType=1 );
+    border-radius: 1.5rem;
+    padding: 1rem;
+}
+
+.card-text {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.card-text span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.card-text p {
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+.icon-container {
+    font-size: 2.5rem;
+    margin-left: auto;
+}
+
+.order-analytics {
+    margin-top: 5rem;
+    padding: 4rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+}
+
+.title-analytics {
+    display: flex;
+    gap: 1rem;
+    font-size: 3rem;
+}
+
+.title-analytics h2 {
+    font-size: 2rem;
+}
+
+.order-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding-top: 2rem;
+}
+
+.order-card {
+    margin-top: 1rem;
+    background-color: #e39a66;
+    opacity: 80%;
+    border-radius: 1rem;
+    height: 5rem;
+}
+
+.order-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-text {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    font-size: 2.5rem;
+    padding: 1rem;
+}
+
+.status-text span {
+    font-size: 2rem;
+}
+
+.count-container {
+    background-color: #fff;
+    border-radius: 50%;
+    margin-right: 1rem;
+    padding: 1.8rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #f46b45;
+}
+
+.count-container span {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.order-sum {
+    margin-top: 5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+}
+
+.sum-content {
+    padding: 4rem;
+}
+
+.title-order {
+    display: flex;
+    gap: 1rem;
+    font-size: 3rem;
+}
+
+.title-order h2 {
+    font-size: 2rem;
+}
+
+.order-timeframe {
+    padding: 2rem;
+    font-size: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.order-timeframe span {
+    font-size: 1.6rem;
+}
+
+.order-table {
+    padding: 4rem;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.order-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th, .order-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e96709;
+}
+
+.order-table th {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.table-status {
+    color: rgb(12, 209, 12);
+}
+
+.order-table td {
+    font-size: 1.2rem;
+    background-color: #fff;
+}
+
+.order-table td button {
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+}
+
+.action-view {
+    color: #007bff;
+}
+
+.action-download {
+    color: rgb(12, 209, 12);
+    margin-left: 0.5rem;
+}
+
+.action-view:hover {
+    color: #3c9aff;
+}
+
+.action-download:hover {
+    color: rgb(85, 235, 85);
+}
+
+.product-analy {
+    margin-top: 5rem;
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+
+.top-sell {
+    padding: 4rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+    width: 50%;
+}
+
+.title-product {
+    display: flex;
+    gap: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.title-product h2 {
+    font-size: 2rem;
+}
+
+.card-product {
+    background-color: #e39a66;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card-content {
+    display: flex;
+    align-items: center;
+}
+
+.img-card {
+    width: 50px;
+    height: auto;
+}
+
+.product-det {
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.product-det span {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.product-det p {
+    color: rgb(255, 30, 0);
+}
+
+.sold-amount {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 2px solid #ff6a00;
+    width: 10rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    margin-left: auto;
+}
+
+.sold-amount span {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.second-section {
+    width: 50%;
+}
+
+.top-rating {
+    padding: 4rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+}
+
+.top-rating1 {
+    padding: 4rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+}

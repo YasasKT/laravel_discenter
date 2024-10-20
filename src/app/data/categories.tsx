@@ -1,11 +1,11 @@
 // data/categories.ts
 import { Category } from '../types/category';
-import TVImage from '../img/tv.png';
-import refreImage from '../img/fridge.png';
-import HAppImage from '../img/vacuum.png';
-import WashineImage from '../img/washing_machine.png';
-import KAppImage from '../img/airfyer-bgless.png';
-import AuVideoImage from '../img/headphones.png';
+import TVImage from '@/img/tv.png';
+import refreImage from '@/img/fridge.png';
+import HAppImage from '@/img/vacuum.png';
+import WashineImage from '@/img/washing_machine.png';
+import KAppImage from '@/img/airfyer-bgless.png';
+import AuVideoImage from '@/img/headphones.png';
 
 export const categories: Category[] = [
   { name: 'TV', image: TVImage, count: 120 },

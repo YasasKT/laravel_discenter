@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Hero from '../orders/ordersComp/orderHero';
-import '../css/Orders.css';
+import '@/css/Orders.css';
 
 // Sample Data for Orders
 const orders = [

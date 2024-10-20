@@ -1,0 +1,228 @@
+section {
+    padding: 4rem;
+}
+
+.title-orders {
+    margin-bottom: 2rem;
+}
+
+.title-heading {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 2rem;
+}
+
+.title-heading .title-separator {
+    height: 0.2rem;
+    background-color: #e96709;
+    width: 100%;
+}
+
+.title-orders h1 {
+    font-size: 3rem;
+    position: relative;
+    white-space: nowrap;
+}
+
+
+
+/* .title-orders h1::after {
+    content: "";
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 0.2rem;
+    background-color: #e96709;
+} */
+
+.title-orders h2 {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+}
+
+.orderAdmin-summary {
+    padding: 4rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 2rem;
+}
+
+.title-orderSum {
+    display: flex;
+    gap: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.title-orderSum h3 {
+    font-size: 2rem;
+}
+
+.orderSum-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.orderSum-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orderSum-table th, .orderSum-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e96709;
+}
+
+.orderSum-table th {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.orderSum-table td {
+    font-size: 1.4rem;
+}
+
+.amount-status {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-status {
+    background-color: #e39a66;
+    border-radius: 0.5rem;
+    width: 15rem;
+    height: 2.5rem;
+    font-weight: bold;
+    margin-top: 0.2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-text {
+    color: green;
+    font-weight: bold;
+}
+
+.action-view {
+    color: blue;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.action-download {
+    color: green;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+}
+
+.action-view:hover,
+.action-download:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    margin: 2rem 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #f1f1f1;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #e96709;
+    color: #333;
+}
+
+.pagination button:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #e96709;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .title-orders h1::after {
+        left: 0;
+        width: 50%;
+    }
+
+    .orderSum-table th, .orderSum-table td {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .orderSum-table th {
+        font-size: 0.8rem;
+    }
+
+    .orderSum-table td {
+        font-size: 0.8rem;
+    }
+
+    .title-orders h1 {
+        font-size: 2.2rem;
+    }
+
+    .title-orders h2 {
+        font-size: 1.8rem;
+    }
+
+    .title-orderSum {
+        font-size: 1.6rem;
+    }
+
+    .title-orderSum h3 {
+        font-size: 1.4rem;
+    }
+
+    .order-status {
+        width: 100%;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    .pagination button {
+        padding: 0.4rem 0.8rem;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 1rem;
+    }
+
+    .orderAdmin-summary {
+        padding: 1.5rem;
+    }
+
+    .pagination button {
+        margin: 1rem 0.3rem;
+        padding: 0.3rem 0.7rem;
+        font-size: 1rem;
+    }
+}

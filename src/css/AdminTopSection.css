@@ -1,0 +1,63 @@
+.page-top {
+    align-items: center;
+    padding: 4rem;
+}
+
+.page-header {
+    align-items: center;
+}
+
+.title-header {
+    display: flex;
+    align-items: center;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.underline {
+    border: none;
+    border-top: 2px solid #ff8c69;
+    margin-left: 5rem;
+    width: 80%;
+}
+
+.next-text {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.create-new {
+    background: linear-gradient(45deg, #ff7e5f, #ff6b6b);
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #333;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.create-new .new-icon {
+    margin-left: 0.5rem;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-new .new-text {
+    font-size: 1.7rem;
+    margin-left: 0.5rem;
+    font-weight: bold;
+}
+
+.page-label {
+    margin-top: 1rem;
+    font-size: 2.5rem;
+}

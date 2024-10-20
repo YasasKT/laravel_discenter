@@ -1,7 +1,7 @@
 // components/Categories.tsx
-import { categories } from '../data/categories';
+import { categories } from '@/app/data/categories';
 import CategoryCard from './categoryCard';
-import { Category } from '../types/category';
+import { Category } from '@/app/types/category';
 import '../css/CategoriesHome.css';
 
 const Categories: React.FC = () => {
