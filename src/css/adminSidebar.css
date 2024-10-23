@@ -1,60 +1,90 @@
-
 .admin-sidebar {
-    width: 35rem;
+    position: fixed;
     background-color: #fff;
-    height: 100vh;
+    width: 300px;
+    height: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 4rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
-}
-
-.logo {
+    transition: transform 0.3s ease;
+    z-index: 1000; 
+    overflow-y: auto;
+  }
+  
+  .admin-sidebar.open {
+    transform: translateX(0); /* Show when open */
+  }
+  
+  .admin-sidebar:not(.open) {
+    transform: translateX(-100%); /* Sidebar is closed */
+  }
+  
+  .admin-logo {
     text-align: center;
-}
-
-.logo img {
-    width: 5rem;
-}
-
-.menu-item, .menu-title {
+    width: 80px;
+  }
+  
+  .admin-logo img {
+    width: 100%;
+  }
+  
+  .menu-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .menu-item {
     display: flex;
     align-items: center;
     padding: 1rem;
     cursor: pointer;
-}
-
-.menu-item span, .menu-title span {
+  }
+  
+  .menu-item span,
+  .menu-title span {
     margin-left: 1rem;
-}
-
-.menu-title {
+  }
+  
+  .menu-title {
     font-size: 1.7rem;
     font-weight: bold;
     border-bottom: 1px solid #eaeaea;
-}
-
-.menu-item {
+  }
+  
+  .menu-item {
     font-size: 1.4rem;
-}
-
-.menu-section {
+  }
+  
+  .menu-item.active {
+    color: #ff6b6b;
+    /* background-color: #ff6b6b;
+    color: white; */
+  }
+  
+  .menu-item.active span {
+    font-weight: bold;
+  }
+  
+  
+  .menu-section {
     margin: 2rem 0;
-}
-
-.menu-section h3 {
+  }
+  
+  .menu-section h3 {
     font-size: 1.7rem;
-}
-
-.dropdown-content {
+  }
+  
+  .dropdown-content {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
-}
-
-.dropdown-item {
+  }
+  
+  .dropdown-item {
     padding: 1rem;
     display: flex;
     justify-content: space-between;
@@ -63,31 +93,32 @@
     margin: 0.5rem 0;
     border-radius: 0.5rem;
     font-size: 1.3rem;
-}
-
-.dropdown-item:hover {
+  }
+  
+  .dropdown-item:hover {
     background-color: #e39a66;
-}
-
-.count {
+  }
+  
+  .count {
     background-color: #333;
     color: #fff;
     padding: 0.3rem 0.8rem;
     border-radius: 1.2rem;
     font-size: 1.2rem;
-}
-
-.active {
-    background-color: #f0f0f0; 
-    color: #e96709; 
-}
-
-.menu-item.active, .menu-title.active {
+  }
+  
+  .active {
+    background-color: #f0f0f0;
+    color: #e96709;
+  }
+  
+  .menu-item.active,
+  .menu-title.active {
     font-weight: bold;
-    border-left: 4px solid #e96709; 
-}
-
-.logout-section {
+    border-left: 4px solid #e96709;
+  }
+  
+  .admin-logout-section {
     display: flex;
     justify-content: left;
     align-items: center;
@@ -96,92 +127,87 @@
     margin-top: auto;
     padding: 1rem;
     font-size: 2rem;
-}
-
-
-.logout-section:hover {
+  }
+  
+  .admin-logout-section:hover {
     background-color: #ffe5e5;
-}
-
-@media (max-width: 1200px) {
+  }
+  
+  
+  @media (max-width: 768px) {
     .admin-sidebar {
-        display: none;
+      width: 25rem;
+      padding: 2rem;
     }
-}
-
-@media (max-width: 768px) {
-    .admin-sidebar {
-        width: 25rem;
-        padding: 2rem;
-    }
-
+  
     .menu-title {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-
+  
     .menu-item {
-        font-size: 1.2rem;
+      font-size: 1.2rem;
     }
-
+  
     .menu-section h3 {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-
+  
     .dropdown-item {
-        font-size: 1.1rem;
-        padding: 0.8rem;
+      font-size: 1.1rem;
+      padding: 0.8rem;
     }
-
+  
     .count {
-        font-size: 1.1rem;
-        padding: 0.2rem 0.7rem;
+      font-size: 1.1rem;
+      padding: 0.2rem 0.7rem;
     }
-
-    .logout-section {
-        font-size: 1.8rem;
-        padding: 0.8rem;
+  
+    .admin-logout-section {
+      font-size: 1.8rem;
+      padding: 0.8rem;
     }
-}
-
-@media (max-width: 480px) {
+  }
+  
+  @media (max-width: 480px) {
     .admin-sidebar {
-        width: 100%;
-        padding: 1.5rem;
+      width: 100%;
+      padding: 1.5rem;
     }
-
-    .logo img {
-        width: 4rem;
+  
+    .admin-logo img {
+      width: 4rem;
     }
-
+  
     .menu-title {
-        font-size: 1.3rem;
+      font-size: 1.3rem;
     }
-
+  
     .menu-item {
-        font-size: 1.1rem;
-        padding: 0.5rem;
+      font-size: 1.1rem;
+      padding: 0.5rem;
     }
-
+  
     .menu-section {
-        margin: 1rem 0;
+      margin: 1rem 0;
     }
-
+  
     .menu-section h3 {
-        font-size: 1.3rem;
+      font-size: 1.3rem;
     }
-
+  
     .dropdown-item {
-        font-size: 1rem;
-        padding: 0.6rem;
+      font-size: 1rem;
+      padding: 0.6rem;
     }
-
+  
     .count {
-        font-size: 1rem;
-        padding: 0.2rem 0.5rem;
+      font-size: 1rem;
+      padding: 0.2rem 0.5rem;
     }
-
-    .logout-section {
-        font-size: 1.5rem;
-        padding: 0.5rem;
+  
+    .admin-logout-section {
+      font-size: 1.5rem;
+      padding: 0.5rem;
     }
-}
+  }
+  

@@ -1,9 +1,10 @@
 "use client"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { TbBrandWindows } from "react-icons/tb";
 import { MdEdit } from "react-icons/md";
-import TopSection from "@/components/AdminTopSection";
+import PopupAddNew from "@/components/PopupAddNew";
 import '@/css/BrandAdmin.css';
+import { HiMiniPlusCircle } from "react-icons/hi2";
 
 interface Brand {
     id: number;
@@ -13,8 +14,6 @@ interface Brand {
 
 export default function Brands() {
 
-    //NEED TO ADD PAGINATION
-
     const [brands, setBrands] = useState<Brand[]>([
         { id: 1, name: "LG", status: true },
         { id: 1, name: "LG", status: false },
@@ -23,8 +22,20 @@ export default function Brands() {
         { id: 1, name: "LG", status: false },
     ]);
 
+    const [showPopup, setShowPopup] = useState(false);
+
+    const addBrand = (name: string, color: string, status: boolean, image?: string) => {
+        const newBrand: Brand = {
+            id: brands.length + 1,
+            name,
+            status
+        };
+        setBrands(prevBrands => [...prevBrands, newBrand]);
+        setShowPopup(false)
+    };
+
     const handleCreateNew = () => {
-        console.log('Create New Clicked!');
+        setShowPopup(true);
     };
 
     const toggleStatus = (id: number) => {
@@ -35,15 +46,70 @@ export default function Brands() {
         );
     };
 
+    const [iconSize, setIconSize] = useState(30);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+            if (width <=480) {
+                setIconSize(20);
+            } else if (width <= 768) {
+                setIconSize(24);
+            } else {
+                setIconSize(30);
+            }
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+    }, []);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+
+    const totalPages = Math.ceil(brands.length / itemsPerPage);
+
+    const currentBrands = brands.slice(
+        (currentPage -1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const handlePageChange = (pageNumber: number) => {
+        if (pageNumber > 0 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber);
+        }
+    };
+
+    const handleCreateBrand = (name: string, color: string, status: boolean, image?: string) => {
+        console.log("Created brand:", { name, status });
+    };
+
+    const onButtonClick = () => {
+        setShowPopup(!showPopup);
+    };
+
+
     return (
-        <div>
-            <TopSection
-                title="Product Variants"
-                pageLabel="Brand List"
-                buttonText="Create New"
-                onButtonClick={handleCreateNew}
-            />
             <section>
+                {showPopup && (
+                    <PopupAddNew
+                    onClose={() => setShowPopup(false)}
+                    onCreate={handleCreateBrand}
+                    title="Create New Brand"
+                    nameLabel="Brand Name"
+                    placeholder="Enter brand name"
+                    showColorPicker={false}
+                />
+                )}
+            <div className="next-text">
+          <h2 className="page-label">Manage Brands</h2>
+          <button className="create-new" onClick={onButtonClick}>
+            <span className="new-icon">
+              <HiMiniPlusCircle />
+            </span>
+            <span className="new-text">Add Brand</span>
+          </button>
+        </div>
             <div className="brand-list">
                 <div className="title-brands">
                     <TbBrandWindows />
@@ -76,7 +142,7 @@ export default function Brands() {
                                     </td>
                                     <td>
                                         <span className="action-icon">
-                                            <MdEdit size={30}/>
+                                            <MdEdit size={iconSize}/>
                                         </span>
                                     </td>
                                 </tr>
@@ -85,7 +151,31 @@ export default function Brands() {
                     </table>
                 </div>
             </div>
+            <div className="pagination">
+                <button 
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    &lt; Previous
+                </button>
+
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <button 
+                        key={index}
+                        onClick={() => handlePageChange(index + 1)}
+                        className={index + 1 === currentPage ? "active" : ""}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                >
+                    Next &gt;
+                </button>
+            </div>
             </section>
-        </div>
-    )
+    );
 } 

@@ -89,6 +89,13 @@ a {
 }
 
 .admin-content {
+  margin-left: 0;
   flex-grow: 1;
   padding: 1rem;
+  transition: margin-left 0.3s ease;
+  position: relative;
+}
+
+.admin-content.shifted {
+  margin-left: 300px;
 }

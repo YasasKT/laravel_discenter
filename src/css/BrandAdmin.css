@@ -20,6 +20,23 @@
     overflow-x: auto;
 }
 
+.searchbar {
+    position: absolute;
+    top: -50px;
+    right: 0;
+}
+
+.searchbar input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.searchbar input:focus {
+    border-color: #e96709;
+}
+
 .brand-table table {
     width: 100%;
     border-collapse: collapse;
@@ -38,6 +55,13 @@
 
 .brand-table td {
     font-size: 1.4rem;
+}
+
+.subCat-category {
+    padding: 1rem;
+    background: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);
+    border-radius: 1rem;
+    font-weight: bold;
 }
 
 .toggle-switch {
@@ -99,4 +123,135 @@ input:checked + .slider:before {
     border: none;
     cursor: pointer;
     font-size: 2rem;
+}
+
+.action-see {
+    color: rgb(42, 90, 219);
+    margin-right: 1rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    margin: 2rem 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #f1f1f1;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #e96709;
+    color: #333;
+}
+
+.pagination button:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #e96709;
+    color: #333;
+}
+
+
+@media (max-width: 768px) {
+    .brand-list {
+        padding: 2rem;
+    }
+
+    .title-brands {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .title-brands h3 {
+        font-size: 1.8rem;
+    }
+
+    .brand-table th, .brand-table td {
+        padding: 0.8rem;
+    }
+
+    .brand-table th {
+        font-size: 1.4rem;
+    }
+
+    .brand-table td {
+        font-size: 1.2rem;
+    }
+
+    .toggle-switch {
+        width: 45px;
+        height: 24px;
+    }
+
+    .slider:before {
+        width: 16px;
+        height: 16px;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(20px);
+        -ms-transform: translateX(20px);
+        transform: translateX(20px);
+    }
+
+    .action-icon {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-list {
+        padding: 1.5rem;
+    }
+
+    .title-brands {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .title-brands h3 {
+        font-size: 1.6rem;
+    }
+
+    .brand-table th, .brand-table td {
+        padding: 0.6rem;
+    }
+
+    .brand-table th {
+        font-size: 1.2rem;
+    }
+
+    .brand-table td {
+        font-size: 1.1rem;
+    }
+
+    .toggle-switch {
+        width: 40px;
+        height: 22px;
+    }
+
+    .slider:before {
+        width: 14px;
+        height: 14px;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(18px);
+        -ms-transform: translateX(18px);
+        transform: translateX(18px);
+    }
+
+    .action-icon {
+        font-size: 1.5rem;
+    }
 }

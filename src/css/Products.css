@@ -1,0 +1,110 @@
+.products-page {
+    padding: 2rem;
+}
+
+.filter-section {
+    margin-bottom: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 4rem;
+    border-radius: 1rem;
+}
+
+.filter-section h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.filter-dropdowns {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 2rem;
+}
+
+.filterdrop-container {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.filterdrop-container label {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+select {
+    padding: 1.2rem;
+    border: 1px solid #e96709;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.apply-btn, .reset-btn {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.apply-btn {
+    background: linear-gradient(45deg, #ff7e5f, #ff6b6b);
+    color: #333;
+    border: 1px solid #333;
+}
+
+.apply-btn:hover {
+    background: linear-gradient(45deg, #ffb199, #ff8b8b);
+}
+
+.reset-btn {
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
+}
+
+.reset-btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.verified-icon {
+    color: #4caf50;
+    cursor: pointer;
+}
+
+.deny-icon {
+    color: #f44336;
+    cursor: pointer;
+}
+
+.verify-status {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.verify-appr {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.verify-den {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f44336;
+}

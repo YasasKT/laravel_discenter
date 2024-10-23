@@ -15,7 +15,6 @@ import '@/css/DashboardAdmin.css';
 export default function Dashboard() {
     return (
         <div className="dashboard-page">
-            <h1>Dashboard</h1>
             <div className='overview'>
                 <div className='overview-card'>
                     <div className='card-text'>
