@@ -61,6 +61,7 @@ export default function RootLayout({ children }: LayoutProps) {
   }, []);
 
   const isAdminRoute = pathname.startsWith("/admin");
+  const isAuthPage = pathname === "/admin/signup" || pathname === "/admin/login";
 
   
 let topSectionProps: TopSectionProps = {
@@ -113,6 +114,16 @@ if (pathname === "/admin/brands") {
     title: "Product Management",    
   };
 }
+
+  if (isAuthPage) {
+    return (
+      <html lang="en">
+        <body className={inter.className}>
+          <main className="auth-content">{children}</main>
+        </body>
+      </html>
+    );
+  }
 
   return isAdminRoute ? (
     <html lang="en">
