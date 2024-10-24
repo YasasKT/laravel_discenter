@@ -1,0 +1,154 @@
+.profilePage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.profile-card {
+    width: 80%;
+    border: 1px solid #ffcccc;
+    padding: 2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    margin-bottom: 4rem;
+}
+
+.profile-pic img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.detail-row1, .detail-row2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.detail-row1 {
+    gap: 15rem;
+}
+
+.detail-row2 {
+    gap: 30rem;
+}
+
+.detail-prof {
+    text-align: center;
+    flex: 1;
+    width: 30%;
+}
+
+.detail-prof h4 {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.detail-prof p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profile-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.edit-profile-btn, .change-password-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.edit-profile-btn {
+    background: linear-gradient(90deg, #ff5858 0%, #ffb199 100%);
+    color: white;
+}
+
+.change-password-btn {
+    background-color: white;
+    color: black;
+    border: 1px solid #ffcccc;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .profile-card {
+        width: 90%;
+        padding: 1.5rem;
+    }
+    
+    .detail-row1, .detail-row2 {
+        gap: 10rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .profile-pic img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .detail-row1, .detail-row2 {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .detail-prof {
+        width: 100%;
+        text-align: left;
+        padding-left: 1rem;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 1rem;
+    }
+
+    .profile-pic img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .detail-prof h4 {
+        font-size: 12px;
+    }
+
+    .detail-prof p {
+        font-size: 14px;
+    }
+
+    .edit-profile-btn, .change-password-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

@@ -10,8 +10,11 @@ import {
   faChevronDown,
   faCartShopping,
   faChevronRight,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./sidebar";
+import { FaUserCircle } from "react-icons/fa";
+import { AiFillCaretDown } from "react-icons/ai";
 
 // Define types for categories
 interface Category {
@@ -36,6 +39,27 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
     totalPrice: 0,
   });
   const [sidebarVisible, setSidebarVisible] = useState<boolean>(false);
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
+
+  const [isLoginPopupVisibile, setLoginPopupVisible] = useState<boolean>(false);
+  const [isSignupPopupVisible, setSignupPopupVisible] = useState<boolean>(false);
+
+  const openLoginPopup = () => {
+    setLoginPopupVisible(true);
+  };
+
+  const closeLoginPopup = () => {
+    setLoginPopupVisible(false);
+  };
+
+  const openSignupPopup = () => {
+    setSignupPopupVisible(true);
+  };
+
+  const closeSignupPopup = () => {
+    setSignupPopupVisible(false);
+  };
 
   useEffect(() => {
     // Example categories data
@@ -96,7 +120,44 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
     setCategories(exampleCategories);
     // fetchCategories();
     fetchCartInfo();
+
+    const checkLoginStatus = async () => {
+      const loggedIn = false;
+      setIsUserLoggedIn(loggedIn);
+    };
+
+    checkLoginStatus();
   }, []);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const [iconSize, setIconSize] = useState(30);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 480) {
+        setIconSize(16);
+      } else if (width <= 768) {
+        setIconSize(20);
+      } else {
+        setIconSize(25);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  }, []);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <>
@@ -161,6 +222,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
         />
 
         <nav className="navbar">
+          <div className="navbar-container">
           <ul>
             <li className="home-link">
               <a href="/">Home</a>
@@ -232,6 +294,167 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
               <a href="/about">About</a>
             </li>
           </ul>
+          </div>
+          <div className="profile-container">
+            <div className="profile-dropdown">
+              <button className="profiledrop-btn" onClick={toggleDropdown}>
+                <FaUserCircle className="user-icon" size={iconSize} />
+                <span>User</span>
+                <AiFillCaretDown className="caret-icon" size={iconSize} />
+              </button>
+              {isOpen && (
+                <div className="dropdown-menu">
+                  <ul className="prof-list">
+                    {isUserLoggedIn ? (
+                      <>
+                        <span className="list-one">Profile</span>
+                        <span className="list-one">Logout</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="list-one" onClick={openLoginPopup}>Login</span>
+                        <span className="list-one" onClick={openSignupPopup}>Signup</span>
+                      </>
+                    )}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {isLoginPopupVisibile && (
+            <div className="popupAuth-overlay">
+              <div className="popup-auth">
+                <FontAwesomeIcon 
+                  icon={faTimes}
+                  className="close-popup"
+                  onClick={closeLoginPopup}
+                />
+                <div className="form-header">
+                  <h2>Login</h2>
+                  <img src="img/dclogocrop.jpg" alt="logo" className="logo-container" />
+                  <p>Welcome to Discount Center! One place for all your needs.</p>
+                </div>
+                <form className="popupAuth-form">
+                  <div className="formAd-group">
+                    <label htmlFor="username">Username</label>
+                    <input 
+                      type="username"
+                      id="username"
+                      name="username"
+                      placeholder="Enter your username"
+                      required
+                    />
+                  </div>
+                  <div className="formAd-group">
+                    <label htmlFor="password">Password</label>
+                    <div className="password-wrapper">
+                      <input 
+                        type={showPassword ? 'text' : 'password'}
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                      />
+                      <span onClick={togglePasswordVisibility} className="show-password">
+                        {showPassword ? 'Hide' : 'Show'}
+                      </span>
+                    </div>
+                  </div>
+                  <button type="submit" className="btn-submit">
+                    Login
+                  </button>
+                </form>
+                <div className="popupAuth-footer">
+                  <span>Don't have an account? Create new account </span>
+                  <button className="btn-switch" onClick={() => {
+                    closeLoginPopup();
+                    openSignupPopup();
+                  }}> Here</button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {isSignupPopupVisible && (
+            <div className="popupAuth-overlay">
+              <div className="popup-auth">
+                <FontAwesomeIcon 
+                  icon={faTimes}
+                  className="close-popup"
+                  onClick={closeSignupPopup}
+                />
+                <div className="form-header">
+                  <h2>Signup</h2>
+                  <img src="/img/dclogocrop.jpg" alt="logo" className="logo-container" />
+                  <p>Welcome to Discount Center! One place for all your needs.</p>
+                </div>
+                <form className="popupAuth-form">
+                  <div className="formAd-group">
+                    <label htmlFor="username">Username</label>
+                    <input 
+                      type="username"
+                      id="username"
+                      name="username"
+                      placeholder="Enter your username"
+                      required
+                    />
+                  </div>
+                  <div className="formAd-group">
+                    <label htmlFor="email">Email Address</label>
+                    <input 
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Enter your email address"
+                      required
+                    />
+                  </div>
+                  <div className="formAd-group">
+                    <label htmlFor="password">Password</label>
+                    <div className="password-wrapper">
+                      <input 
+                        type={showPassword ? 'text' : 'password'}
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                      />
+                      <span onClick={togglePasswordVisibility} className="show-password">
+                        {showPassword ? 'Hide' : 'Show'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="formAd-group">
+                    <label htmlFor="confirm-password">Confirm Password</label>
+                    <div className="password-wrapper">
+                      <input 
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        id="confirm-password"
+                        name="confirm-password"
+                        placeholder="Re-enter your password"
+                        required
+                      />
+                      <span onClick={toggleConfirmPasswordVisibility} className="show-password">
+                        {showConfirmPassword ? 'Hide' : 'Show'}
+                      </span>
+                    </div>
+                  </div>
+                  <button type="submit" className="btn-submit">
+                    Sign Up
+                  </button>
+                </form>
+                <div className="popupAuth-footer">
+                  <span>Already have an account? Login </span>
+                  <button className="btn-switch" onClick={() => {
+                    closeSignupPopup();
+                    openLoginPopup();
+                  }}> Here</button>
+                </div>
+              </div>
+            </div>
+          )}
         </nav>
       </header>
     </>

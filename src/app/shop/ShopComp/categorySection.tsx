@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import TVImage from '../../img/led-television-icon.png';
-import '../../css/CategorySection.css';
+import TVImage from '@/img/led-television-icon.png';
+import '@/css/CategorySection.css';
 
 interface Category {
     id: number;

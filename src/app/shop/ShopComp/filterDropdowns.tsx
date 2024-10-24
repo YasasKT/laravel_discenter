@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/FilterDropdowns.css';
+import '@/css/FilterDropdowns.css';
 
 const FilterDropdowns: React.FC = () => {
     const [productsToShow, setProductsToShow] = useState('10'); // Default value is 10

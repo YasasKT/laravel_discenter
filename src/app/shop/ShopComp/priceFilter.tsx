@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/PriceFilter.css';
+import '@/css/PriceFilter.css';
 
 const PriceFilter: React.FC = () => {
     const [minPrice, setMinPrice] = useState(150);

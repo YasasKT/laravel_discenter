@@ -3,8 +3,8 @@ import HeroSectionShop from "./ShopComp/heroShop";
 import CategorySection from "./ShopComp/categorySection";
 import PriceFilter from "./ShopComp/priceFilter";
 import FilterDropdowns from "./ShopComp/filterDropdowns";
-import Pagination from "../components/pagination";
-import '../css/Shop.css';
+import Pagination from "@/components/pagination";
+import '@/css/Shop.css';
 import { useState } from "react";
 
 export default function Shop() {
