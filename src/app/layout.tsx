@@ -113,6 +113,11 @@ if (pathname === "/admin/brands") {
     ...topSectionProps,
     title: "Product Management",    
   };
+} else if (pathname === "/admin/profile") {
+  topSectionProps = {
+    ...topSectionProps,
+    title: "Profile",
+  };
 }
 
   if (isAuthPage) {

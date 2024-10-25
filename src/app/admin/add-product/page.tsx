@@ -4,7 +4,7 @@ import { IoMdAlert } from "react-icons/io";
 import { MdFeaturedPlayList } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import "@/css/ProductAdd.css";
-import { FaTrash } from "react-icons/fa";
+import { FaImage, FaTrash } from "react-icons/fa6";
 
 export default function AddProduct() {
     const [name, setName] = React.useState("");
@@ -16,6 +16,7 @@ export default function AddProduct() {
     const [featureName, setFeatureName] = React.useState("");
     const [featureValue, setFeatureValue] = React.useState("");
     const [features, setFeatures] = useState([{ name: "", value: "" }]);
+    const [images, setImages] = useState<{id: Number; file: File | null }[]>([{ id: 0, file: null }]);
 
     const addFeature = () => {
         setFeatures([...features, { name: "", value: ""}]);
@@ -32,11 +33,28 @@ export default function AddProduct() {
         setFeatures(updatedFeatures);
     };
 
+    const handleImageChange = (index: number, file: File | null) => {
+        const updatedImages = [...images];
+        updatedImages[index].file = file;
+        setImages(updatedImages);
+    };
+
+    const addImage = () => {
+        setImages([...images, { id: images.length, file: null }]);
+    };
+
+    const removeImage = (index: number) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
+    };
+
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedSubCategory, setSelectedSubCategory] = useState("");
     const [selectedBrand, setSelectedBrand] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
+    const [selectedAvailability, setSelectedAvailability] = useState("");
+    const [selectedFeatured, setSelectedFeatured] = useState("");
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCategory(e.target.value);
@@ -52,6 +70,45 @@ export default function AddProduct() {
     };
     const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedSize(e.target.value);
+    };
+
+    const handleAvailabilityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedAvailability(e.target.value);
+    };
+
+    const handleFeaturedChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedFeatured(e.target.value);
+    };
+
+    const [showResetPopup, setShowResetPopup] = useState(false);
+
+    const resetForm = () => {
+        setName("");
+        setShortDes("");
+        setDes("");
+        setModel("");
+        setOldPrice("");
+        setPrice("");
+        setFeatures([{ name: "", value: ""}]);
+        setImages([{ id: 0, file: null }]);
+        setSelectedCategory("");
+        setSelectedSubCategory("");
+        setSelectedBrand("");
+        setSelectedAvailability("");
+        setSelectedFeatured("");
+    };
+
+    const handleResetClick = () => {
+        setShowResetPopup(true);
+    };
+
+    const handleConfirmReset = () => {
+        resetForm();
+        setShowResetPopup(false);
+    };
+
+    const handleCancelReset = () => {
+        setShowResetPopup(false);
     };
 
     return (
@@ -147,7 +204,8 @@ export default function AddProduct() {
                                 <option value="Furniture">Furniture</option>
                             </select>
                         </div>
-
+                    </div>
+                    <div className="filter-row">
                         <div className="filterdrop-container">
                             <label htmlFor="brand">Brand</label>
                             <select id="brand" value={selectedBrand} onChange={handleBrandChange}>
@@ -155,6 +213,22 @@ export default function AddProduct() {
                                 <option value="Brand A">Brand A</option>
                                 <option value="Brand B">Brand B</option>
                                 <option value="Brand C">Brand C</option>
+                            </select>
+                        </div>
+                        <div className="filterdrop-container">
+                            <label htmlFor="availability">Availability</label>
+                            <select id="availability" value={selectedAvailability} onChange={handleAvailabilityChange}>
+                                <option value="">Select Availability</option>
+                                <option value="In Stock">In Stock</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                        </div>
+                        <div className="filterdrop-container">
+                            <label htmlFor="featured">Featured</label>
+                            <select id="featured" value={selectedFeatured} onChange={handleFeaturedChange}>
+                                <option value="">Select Featured</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                     </div>
@@ -212,7 +286,52 @@ export default function AddProduct() {
                     <IoMdAlert color="#e96709"/>
                     <h3>Product Images</h3>
                 </div>
+                {images.map((image, index) => (
+                    <div key={index} className="image-upload-container">
+                        <div className="image-upload">
+                            <div className="feature-head">
+                                <FaImage/>
+                                <label htmlFor={`image-${index}`}>Upload Image {index + 1}</label>
+                            </div>
+                            <input 
+                                type="file"
+                                id={`image-${index}`}
+                                onChange={(e) => handleImageChange(index, e.target.files ? e.target.files[0] : null)}
+                                accept="image/*"
+                            />
+                            {index > 0 && (
+                                <button 
+                                    className="remove-feature-btn"
+                                    onClick={() => removeImage(index)}
+                                >
+                                    Remove <FaTrash className="remove-icon" />
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                ))}
+                <div className="featurebtn-container">
+                    <button onClick={addImage}>
+                        Add More <FaPlus className="plus-icon" />
+                    </button>
+                </div>
             </div>
+            <div className="addbtn-container">
+            <button className="product-reset-btn" onClick={handleResetClick}>Reset</button>
+                <button className="product-add-btn">Add Product</button>
+            </div>
+
+            {showResetPopup && (
+                <div className="conf-overlay">
+                    <div className="popup-box">
+                        <h3>Are you sure you want to reset all values?</h3>
+                        <div className="popup-buttons">
+                            <button onClick={handleConfirmReset}>Yes</button>
+                            <button onClick={handleCancelReset}>No</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
-    )
+    );
 }

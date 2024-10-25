@@ -31,6 +31,7 @@
 .feature-head {
     display: flex;
     gap: 1rem;
+    font-size: 2rem;
 }
 
 .product-form {
@@ -96,7 +97,6 @@
     border: 1,5px solid #e96709;
     border-radius: 0.5rem;
     outline: none;
-    margin-bottom: 1rem;
 }
 
 .product-other input:focus {
@@ -132,6 +132,40 @@ select {
     border: 1px solid #e96709;
     border-radius: 1rem;
     font-size: 1.5rem;
+}
+
+.image-upload-container {
+    margin-bottom: 1rem;
+}
+
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.image-upload label {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.image-upload input {
+    border: 1px solid #e96709;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.remove-image-btn {
+    background-color: #ffcccc;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .featurebtn-container {
@@ -176,7 +210,7 @@ select {
     border-radius: 0.5rem;
     cursor: pointer;
     margin-top: 1rem;
-    width: 10%;
+    width: 20%;
 }
 
 .remove-feature-btn:hover {
@@ -188,4 +222,74 @@ select {
     margin-left: 0.5rem;
     display: inline-block;
     vertical-align: middle;
+}
+
+.addbtn-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.product-add-btn {
+    padding: 1rem;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff7e5f, #ff6b6b);
+}
+
+.product-add-btn:hover {
+    background: linear-gradient(45deg, #ffb199, #ff8b8b);
+}
+
+.product-reset-btn {
+    padding: 1rem;
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: white;
+}
+
+.product-reset-btn:hover {
+    background-color: #333;
+    color: white;
+}
+
+.conf-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-buttons {
+    margin-top: 2rem;
+}
+
+.popup-buttons button {
+    margin: 0 1rem;
+    padding: 1rem 2rem;
+    background-color: #e96709;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.popup-buttons button:hover {
+    background-color: #d15606;
 }

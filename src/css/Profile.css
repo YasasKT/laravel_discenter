@@ -78,14 +78,23 @@
 }
 
 .edit-profile-btn {
-    background: linear-gradient(90deg, #ff5858 0%, #ffb199 100%);
+    background: linear-gradient(45deg, #ff7e5f, #ff6b6b);
     color: white;
+}
+
+.edit-profile-btn:hover {
+    background: linear-gradient(45deg, #ffb199, #ff8b8b);
 }
 
 .change-password-btn {
     background-color: white;
     color: black;
-    border: 1px solid #ffcccc;
+    border: 2px solid #ffcccc;
+}
+
+.change-password-btn:hover {
+    background-color: #333;
+    color: white;
 }
 
 /* Responsive Styles */
