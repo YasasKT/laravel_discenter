@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import '../../css/Billing.css';
+import { Address } from '@/app/models/user';
+import '../../../css/BillingForm.css';
 
 interface BillingFormProps {
     isShippingForm: boolean;
+    onClose: () => void;
+    onSave: (newAddress: Partial<Address>) => Promise<void>;
+    formType: 'billing' | 'shipping';
 }
 
-const BillingForm: React.FC<BillingFormProps> = ({ isShippingForm }) => {
+const BillingForm: React.FC<BillingFormProps> = ({
+    isShippingForm,
+    onClose,
+    onSave,
+    formType
+}) => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -17,15 +26,27 @@ const BillingForm: React.FC<BillingFormProps> = ({ isShippingForm }) => {
         phoneNumber: '',
         secondaryPhoneNumber: '',
         postalCode: '',
+        
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData({ ...formData, [name]: value});
+    };
+
+    const handleSave = async () => {
+        try {
+            await onSave(formData);
+            onClose();
+        } catch (error) {
+            console.error("Error saving the address:", error);
+        }
     };
 
     return (
-        <div className="billing-form">
+        <div className='form'>
+            <div className="billing-form">
+            <h3>{formType === 'billing' ? 'Billing Address' : 'Shipping Address'}</h3>
             <div className="input-row">
                 <div className="input-group">
                     <label htmlFor="firstName">First Name</label>
@@ -154,7 +175,17 @@ const BillingForm: React.FC<BillingFormProps> = ({ isShippingForm }) => {
                     />
                 </div>
             </div>
+
+            <div className='form-actions'>
+                <button type='button' onClick={onClose}>
+                    Cancel
+                </button>
+                <button type='button' onClick={handleSave}>
+                    Save
+                </button>
+            </div>
                 
+        </div>
         </div>
     );
 };

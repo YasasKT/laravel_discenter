@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import whoWeAreImage from '../../img/abousUs.jpg';
-import '../../css/AboutUs.css';
+import whoWeAreImage from '../../../img/abousUs.jpg';
+import '../../../css/AboutUs.css';
 
 const WhoWeAre: React.FC = () => {
     return (

@@ -1,4 +1,6 @@
 "use client";
+
+import Image from 'next/image';
 import TvImage from '@/img/tv.png';
 import { GiCubeforce, GiConfirmed } from "react-icons/gi";
 import { GrCart } from "react-icons/gr";
@@ -191,7 +193,7 @@ export default function Dashboard() {
                     <div className="card-product">
                         <div className='card-content'>
                         <div className="img-card">
-                            <img src={TvImage} alt='product-image' />
+                            <Image src={TvImage} alt='product-image' />
                         </div>
                         <div className="product-det">
                             <span>TV</span>
@@ -205,7 +207,7 @@ export default function Dashboard() {
                     <div className="card-product">
                         <div className='card-content'>
                         <div className="img-card">
-                            <img src={TvImage} alt='product-image' />
+                            <Image src={TvImage} alt='product-image' />
                         </div>
                         <div className="product-det">
                             <span>TV</span>
@@ -219,7 +221,7 @@ export default function Dashboard() {
                     <div className="card-product">
                         <div className='card-content'>
                         <div className="img-card">
-                            <img src={TvImage} alt='product-image' />
+                            <Image src={TvImage} alt='product-image' />
                         </div>
                         <div className="product-det">
                             <span>TV</span>
@@ -240,7 +242,7 @@ export default function Dashboard() {
                         <div className='card-product'>
                             <div className='card-content'>
                                 <div className='img-card'>
-                                    <img src={TvImage} alt='product-image' />
+                                    <Image src={TvImage} alt='product-image' />
                                 </div>
                                 <div className='product-det'>
                                     <span>TV</span>
@@ -254,7 +256,7 @@ export default function Dashboard() {
                         <div className='card-product'>
                             <div className='card-content'>
                                 <div className='img-card'>
-                                    <img src={TvImage} alt='product-image' />
+                                    <Image src={TvImage} alt='product-image' />
                                 </div>
                                 <div className='product-det'>
                                     <span>TV</span>
@@ -268,7 +270,7 @@ export default function Dashboard() {
                         <div className='card-product'>
                             <div className='card-content'>
                                 <div className='img-card'>
-                                    <img src={TvImage} alt='product-image' />
+                                    <Image src={TvImage} alt='product-image' />
                                 </div>
                                 <div className='product-det'>
                                     <span>TV</span>
@@ -288,7 +290,7 @@ export default function Dashboard() {
                         <div className='card-product'>
                             <div className='card-content'>
                                 <div className='img-card'>
-                                    <img src={TvImage} alt='product-image' />
+                                    <Image src={TvImage} alt='product-image' />
                                 </div>
                                 <div className='product-det'>
                                     <span>TV</span>
@@ -302,7 +304,7 @@ export default function Dashboard() {
                         <div className='card-product'>
                             <div className='card-content'>
                                 <div className='img-card'>
-                                    <img src={TvImage} alt='product-image' />
+                                    <Image src={TvImage} alt='product-image' />
                                 </div>
                                 <div className='product-det'>
                                     <span>TV</span>
@@ -316,7 +318,7 @@ export default function Dashboard() {
                         <div className='card-product'>
                             <div className='card-content'>
                                 <div className='img-card'>
-                                    <img src={TvImage} alt='product-image' />
+                                    <Image src={TvImage} alt='product-image' />
                                 </div>
                                 <div className='product-det'>
                                     <span>TV</span>

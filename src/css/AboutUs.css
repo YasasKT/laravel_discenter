@@ -2,15 +2,14 @@
     display: flex;
     align-items: self-start;
     justify-content: space-between;
-    margin-top: 10rem;
+    margin-top: 4rem;
     padding: 5rem;
     height: 600px;
 }
   
 .who-we-are-content {
-    padding-left: 20rem;
     width: 50%;
-    padding-right: 10rem;
+    padding: 4rem;
 }
   
 .who-we-are-content h2 {
@@ -43,8 +42,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 4rem;
     margin-bottom: 5rem;
-    padding-left: 20rem;
 }
   
 .why-choose-us-content {
@@ -93,7 +92,7 @@
 .why-choose-us-image {
     position: relative;
     width: 50%;
-    height: 750px;
+    height: 500px;
     border-radius: 10px;
     overflow: hidden;
 }

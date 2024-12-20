@@ -257,14 +257,14 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
               </div>
             </li>
             <li>
-              <a href="/categories">
+              <a href="">
                 Categories <FontAwesomeIcon icon={faChevronDown} />
               </a>
               <div className="subnav">
                 <ul>
                   {categories.map((mainCategory) => (
                     <li key={mainCategory.id}>
-                      <a href={`/category/${mainCategory.name}`}>
+                      <a href={`/shop/${mainCategory.name}`}>
                         <FontAwesomeIcon icon={faChevronRight} />{" "}
                         {mainCategory.name}
                       </a>
@@ -273,7 +273,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
                           <ul>
                             {mainCategory.subcategories.map((subcategory) => (
                               <li key={subcategory.id}>
-                                <a href={`/category/${subcategory.name}`}>
+                                <a href={`/shop/${subcategory.name}`}>
                                   <FontAwesomeIcon icon={faChevronRight} />{" "}
                                   {subcategory.name}
                                 </a>

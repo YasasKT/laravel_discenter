@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from 'react-icons/fa';
-import '../css/Checkout.css'; // Ensure the correct CSS file is imported
+import '../../css/Checkout.css'; // Ensure the correct CSS file is imported
 
 const CheckoutPage: React.FC = () => {
     const [selectedCardType, setSelectedCardType] = useState<string | null>(null);

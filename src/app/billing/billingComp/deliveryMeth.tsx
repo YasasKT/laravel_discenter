@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/Billing.css';
+import '../../../css/Billing.css';
 
 const DeliveryMethod: React.FC = () => {
     return (

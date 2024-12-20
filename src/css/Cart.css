@@ -73,8 +73,34 @@
 .cart-item-quantity {
     flex: 1;
     display: flex;
+    align-items: center;
     margin-left: 5rem;
     justify-content: start; /* Left align the quantity changer */
+}
+
+.cart-item-quantity button {
+    padding: 3px 8px;
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cart-item-quantity button:hover {
+    background-color: #ddd;
+}
+
+.cart-item-quantity span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    padding: 0 4px;
 }
 
 /* Subtotal */
@@ -162,8 +188,8 @@
 /* Cart Totals Buttons */
 .cart-totals-buttons {
     display: flex;
-    justify-content: space-between; /* Align buttons side by side */
-    gap: 10px;
+    justify-content: space-around; /* Align buttons side by side */
+    gap: 1px;
     margin-top: 2rem;
 }
 
@@ -176,7 +202,6 @@
     border-radius: 5px;
     font-size: 1.6rem;
     text-align: center;
-    width: 48%;
 }
 
 .checkout-btn {
@@ -188,7 +213,6 @@
     border-radius: 5px;
     font-size: 1.6rem;
     text-align: center;
-    width: 48%; /* Buttons take equal width */
 }
 
 .update-cart-btn:hover {

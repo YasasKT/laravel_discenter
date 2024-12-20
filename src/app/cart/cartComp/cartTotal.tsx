@@ -1,9 +1,11 @@
 import React from 'react';
-import '../../css/Cart.css'; // Ensure you are importing the CSS
+import '../../../css/Cart.css';
 
-const CartTotals: React.FC<{ subtotal: number }> = ({ subtotal }) => {
-    const total = subtotal;
+interface CartTotalsProps {
+    subtotal: number;
+}
 
+const CartTotals: React.FC<CartTotalsProps> = ({ subtotal }) => {
     return (
         <div className="cart-section-right">
             <h2>CART TOTALS</h2>
@@ -14,12 +16,12 @@ const CartTotals: React.FC<{ subtotal: number }> = ({ subtotal }) => {
                 </div>
                 <div className="cart-totals-item">
                     <strong>Total</strong>
-                    <strong>${total.toFixed(2)}</strong>
+                    <strong>${subtotal.toFixed(2)}</strong>
                 </div>
             </div>
             <div className="cart-totals-buttons">
                 <button className="update-cart-btn">Update Cart</button>
-                <a href='/billing'>
+                <a href="/billing">
                     <button className="checkout-btn">Proceed to Checkout</button>
                 </a>
             </div>

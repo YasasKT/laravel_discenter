@@ -1,12 +1,21 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IoMdAlert } from "react-icons/io";
 import { MdFeaturedPlayList } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import "@/css/ProductAdd.css";
 import { FaImage, FaTrash } from "react-icons/fa6";
+import { addProduct, getProduct, updateProduct } from "@/app/network/products_api";
 
 export default function AddProduct() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const productId = searchParams.get("id") ? parseInt(searchParams.get("id")!, 10) : undefined;
+
+    const isEditMode = !!productId;
+
     const [name, setName] = React.useState("");
     const [shortDes, setShortDes] = React.useState("");
     const [des, setDes] = React.useState("");
@@ -17,6 +26,7 @@ export default function AddProduct() {
     const [featureValue, setFeatureValue] = React.useState("");
     const [features, setFeatures] = useState([{ name: "", value: "" }]);
     const [images, setImages] = useState<{id: Number; file: File | null }[]>([{ id: 0, file: null }]);
+
 
     const addFeature = () => {
         setFeatures([...features, { name: "", value: ""}]);
@@ -109,6 +119,90 @@ export default function AddProduct() {
 
     const handleCancelReset = () => {
         setShowResetPopup(false);
+    };
+    
+    const handleAddProduct = async () => {
+        const productData = {
+            id: 0,              
+            name: name,      
+            model: model,       
+            description: des,  
+            point_desc: "",    
+            old_price: parseFloat(oldPrice), 
+            price: parseFloat(price),       
+            image_01: "image_01", 
+            image_02: "image_02",  
+            image_03: "image_03",  
+            category: selectedCategory,  
+            sub_category: selectedSubCategory,    
+            availability: selectedAvailability, 
+            featured: selectedFeatured === "true",
+        };
+
+        try {
+            await addProduct(productData);
+            resetForm();
+            alert("product added successfully!");
+        } catch (error) {
+            console.error("Error adding product", error);
+            alert("Failed to add product!");
+        }
+    };
+
+    useEffect(() => {
+        if (isEditMode && productId) {
+            const fetchProduct = async () => {
+                try {
+                    const product = await getProduct(productId);
+                    setName(product!.name);
+                    setShortDes(product!.point_desc);
+                    setDes(product!.description);
+                    setModel(product!.model);
+                    setOldPrice(product!.old_price.toString());
+                    setPrice(product!.price.toString());
+                    setSelectedCategory(product!.category);
+                    setSelectedSubCategory(product!.sub_category || "");
+                    setSelectedAvailability(product!.availability);
+                    setSelectedFeatured(product!.featured ? "Yes" : "No" );
+                } catch (error) {
+                    console.error("Failed to fetch product details", error);
+                }
+            };
+            fetchProduct();
+        }
+    }, [isEditMode, productId]);
+
+    const hanldeSubmit = async () => {
+        const productData = {
+            id: productId || 0,
+            name,
+            point_desc: shortDes,
+            description: des,
+            model,
+            old_price: parseFloat(oldPrice),
+            price: parseFloat(price),
+            category: selectedCategory,
+            sub_category: selectedSubCategory,
+            image_01: "img/tv.jpg",
+            image_02: "img/tv.jpg",
+            image_03: "img/tv.jpg",
+            availability: selectedAvailability,
+            featured: selectedFeatured === "Yes",
+        };
+
+        try {
+            if (isEditMode) {
+                await updateProduct(productId, productData);
+                alert("Product updated successfully!");
+            } else {
+                await addProduct(productData);
+                alert("Product added sucessfully!");
+            } 
+            router.push("/products");
+        } catch (error) {
+            console.error("Error saving product:", error);
+            alert("Failed to save product.");
+        }
     };
 
     return (

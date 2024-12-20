@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import Image from 'next/image';
-import whyChooseUsImage from '../../img/whyUs.png'; // Replace with your actual image path
-import '../../css/AboutUs.css';
+import whyChooseUsImage from '../../../img/whyUs.png'; // Replace with your actual image path
+import '../../../css/AboutUs.css';
 
 const WhyChooseUs: React.FC = () => {
   return (

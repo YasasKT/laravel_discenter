@@ -1,6 +1,6 @@
 import React from "react";
 import Image from 'next/image';
-import '../../css/WishItem.css';
+import '../../../css/WishItem.css';
 import { FaShoppingCart, FaTrashAlt } from 'react-icons/fa';
 
 type WishItemProps = {

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import '../../css/Account.css';
+import '../../../css/Account.css';
+import { User } from '@/app/models/user';
+import { updateAccountInfo } from '@/app/network/account_api';
 
-export default function AccountInformation() {
-    const [user, setUser] = useState({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'johndoe@example.com',
-        phone: '123 456 7890',
-        secondaryPhone: '098 765 4321',
-        dateOfBirth: '1990-01-01'
-    });
+interface AccountInformationProps {
+    initialUserData: User;
+}
+
+const AccountInformation: React.FC<AccountInformationProps> = ({ initialUserData}) => {
+    const [user, setUser] = useState<User>(initialUserData);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [message, setMessage] = useState<string | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -19,10 +20,27 @@ export default function AccountInformation() {
         }));
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setMessage(null);
+
+        try {
+            await updateAccountInfo(user);
+            setMessage("Account information uploaded successfully.");
+        } catch (error) {
+            console.error("Error updating account information:", error);
+            setMessage("Failed to update account information. Please try again later.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <section className='dashboard-section'>
             <h1>Account Information</h1>
-            <form className='account-info-form'>
+            {message && <p className={`message ${isSubmitting ? 'loading' : 'success'}`}>{message}</p>}
+            <form className='account-info-form' onSubmit={handleSubmit}>
                 <div className='form-row'>
                     <div className='form-group'>
                         <label htmlFor='firstName'>First Name</label>
@@ -32,6 +50,7 @@ export default function AccountInformation() {
                             name='firstName' 
                             value={user.firstName} 
                             onChange={handleInputChange} 
+                            disabled={isSubmitting}
                         />
                     </div>
 
@@ -43,6 +62,7 @@ export default function AccountInformation() {
                             name='lastName' 
                             value={user.lastName} 
                             onChange={handleInputChange} 
+                            disabled={isSubmitting}
                         />
                     </div>
                 </div>
@@ -56,6 +76,7 @@ export default function AccountInformation() {
                             name='email' 
                             value={user.email} 
                             onChange={handleInputChange} 
+                            disabled={isSubmitting}
                         />
                     </div>
 
@@ -67,6 +88,7 @@ export default function AccountInformation() {
                             name='phone' 
                             value={user.phone} 
                             onChange={handleInputChange} 
+                            disabled={isSubmitting}
                         />
                     </div>
                 </div>
@@ -80,6 +102,7 @@ export default function AccountInformation() {
                             name='secondaryPhone' 
                             value={user.secondaryPhone} 
                             onChange={handleInputChange} 
+                            disabled={isSubmitting}
                         />
                     </div>
 
@@ -91,13 +114,16 @@ export default function AccountInformation() {
                             name='dateOfBirth' 
                             value={user.dateOfBirth} 
                             onChange={handleInputChange} 
+                            disabled={isSubmitting}
                         />
                     </div>
                 </div>
-                <button type='submit' className='save-button'>
-                    Save Changes
+                <button type='submit' className='save-button' disabled={isSubmitting}>
+                    {isSubmitting ? 'Saving...' : 'Save Changes'}
                 </button>
             </form>
         </section>
     );
-}
+};
+
+export default AccountInformation;

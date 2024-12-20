@@ -1,74 +1,86 @@
 "use client";
-import PopupNew from "@/components/PopupAddNew";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { FaBalanceScale } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { TbBrandUnity } from "react-icons/tb";
-import '@/css/BrandAdmin.css';
+import PopupAddNew from "@/components/PopupAddNew";
+import "@/css/BrandAdmin.css";
 import { HiMiniPlusCircle } from "react-icons/hi2";
+import { fetchUnits, addUnit, updateUnit } from "@/app/network/unit_api";
 
 interface Unit {
     id: number;
     name: string;
     status: boolean;
-};
+}
 
 export default function Units() {
-    const [units, setUnits] = useState<Unit[]>([
-        {id: 1, name: "UK", status: true},
-        {id: 1, name: "UK", status: true},
-        {id: 1, name: "UK", status: true},
-        {id: 1, name: "UK", status: true},
-        {id: 1, name: "UK", status: true},
-    ]);
-
+    const [units, setUnits] = useState<Unit[]>([]);
     const [showPopup, setShowPopup] = useState(false);
-
-    const addUnit = (name: string, status: boolean) => {
-        const newUnit: Unit = {
-            id: units.length + 1,
-            name,
-            status
-        };
-        setUnits(prevUnits => [...prevUnits, newUnit]);
-        setShowPopup(false)
-    };
-
-    const handleCreateNew = () => {
-        setShowPopup(true);
-    };
-
-    const toggleStatus = (id: number) => {
-        setUnits(prevUnits => 
-            prevUnits.map(unit => 
-                unit.id === id ? { ...unit, status: !unit.status } :unit
-            )
-        );
-    };
-
-    const [iconSize, setIconSize] = useState(30);
-
-    useEffect(() => {
-        const handleResize = () => {
-            const width = window.innerWidth;
-            if (width <= 480) {
-                setIconSize(20);
-            } else if (width <= 768) {
-                setIconSize(24);
-            } else {
-                setIconSize(30);
-            }
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-    }, []);
-
+    const [editUnit, setEditUnit] = useState<Unit | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    const totalPages = Math.ceil(units.length / itemsPerPage);
+    useEffect(() => {
+        const loadUnits = async () => {
+            try {
+                const data = await fetchUnits();
+                setUnits(data);
+            } catch (error) {
+                console.error("Error fetching units:", error);
+            }
+        };
 
-    const currentBrands = units.slice(
+        loadUnits();
+    }, []);
+
+    const handleCreateUnit = async (
+        name: string,
+        status: boolean
+    ) => {
+        const newUnit: Unit = { id: units.length + 1, name,  status };
+        try {
+            const addedUnit = await addUnit(newUnit);
+            setUnits((prevUnits) => [...prevUnits, addedUnit]);
+            setShowPopup(false);
+        } catch (error) {
+            console.error("Error adding unit:", error);
+        }
+    };
+
+    const handleEditUnit = async (id: number, name: string, status: boolean) => {
+        try {
+            const updatedUnit = await updateUnit(id, { name, status });
+            setUnits((prevUnits) => 
+                prevUnits.map((unit) => 
+                    unit.id === id ? { ...unit, name, status } : unit
+                )
+            );
+            setEditUnit(null);
+        } catch (error) {
+            console.error("Error updating unit:", error);
+        }
+    };
+
+    const toggleStatus = async (id: number) => {
+        const unit = units.find((u) => u.id === id);
+        if (unit) {
+            try {
+                const updatedUnit = await updateUnit(id, { status: !unit.status });
+                if (updatedUnit) {
+                    setUnits((prevUnits) => 
+                        prevUnits.map((u) => 
+                            u.id === id ? { ...u, status: updatedUnit.status } : u
+                        )
+                    );
+                }
+            } catch (error) {
+                console.error("Error updating unit:", error);
+            }
+        }
+    };
+
+    const totalPages = Math.ceil(units.length / itemsPerPage);
+    const currentUnits = units.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
@@ -79,101 +91,111 @@ export default function Units() {
         }
     };
 
-    const handleCreateUnit = (name: string, color: string, status: boolean, image?: string) => {
-        console.log("Created Unit:", { name, color, status, image });
-    };
-
-    const onButtonClick = () => {
-        setShowPopup(!showPopup);
-    };
-
     return (
-            <section>
-                {showPopup && (
-                    <PopupNew
-                        onClose={() => setShowPopup(false)}
-                        onCreate={handleCreateUnit}
-                        title="Create New Unit"
-                        nameLabel="Unit Name"
-                        placeholder="Enter unit name"
-                        showColorPicker={false}
-                    />
-                )}
-                <div className="next-text">
-                    <h2 className="page-label">Manage Units</h2>
-                    <button className="create-new" onClick={onButtonClick}>
-                        <span className="new-icon">
-                            <HiMiniPlusCircle />
-                        </span>
-                        <span className="new-text">Add Unit</span>
-                    </button>
+        <section>
+            {showPopup && (
+                <PopupAddNew
+                    onClose={() => setShowPopup(false)}
+                    onCreate={(name, status) => 
+                        handleCreateUnit(name, !status)
+                    }
+                    title="Create New Unit"
+                    nameLabel="Unit Name"
+                    placeholder="Enter unit name"
+                    showColorPicker={false}
+                />
+            )}
+            {editUnit && (
+                <PopupAddNew
+                    onClose={() => setEditUnit(null)}
+                    onCreate={(name, status) => 
+                        handleEditUnit(editUnit.id, name, !status)
+                    }
+                    title="Edit Unit"
+                    nameLabel="Edit Unit Name"
+                    placeholder="Update unit name"
+                    showColorPicker={false}
+                    initialData={{
+                        name: editUnit.name,
+                        status: editUnit.status,
+                    }}
+                />
+            )}
+            <div className="next-text">
+                <h2 className="page-label">Manage Units</h2>
+                <button className="create-new" onClick={() => setShowPopup(true)}>
+                    <span className="new-icon">
+                        <HiMiniPlusCircle />
+                    </span>
+                    <span className="new-text">Add Unit</span>
+                </button>
+            </div>
+            <div className="brand-list">
+                <div className="title-brands">
+                    <FaBalanceScale />
+                    <h3>Units</h3>
                 </div>
-                <div className="brand-list">
-                    <div className="title-brands">
-                        <TbBrandUnity />
-                        <h3>Unit List</h3>
-                    </div>
-                    <div className="brand-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Unit ID</th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                <div className="brand-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Unit ID</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentUnits.map((unit) => (
+                                <tr key={unit.id}>
+                                    <td>{unit.id}</td>
+                                    <td>{unit.name}</td>
+                                    <td>
+                                        <label className="toggle-switch">
+                                            <input 
+                                                type="checkbox"
+                                                checked={unit.status}
+                                                onChange={() => toggleStatus(unit.id)}
+                                            />
+                                            <span className="slider round"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <span className="action-icon" onClick={() => setEditUnit(unit)}>
+                                            <MdEdit size={30} />
+                                        </span>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {units.map(unit => (
-                                    <tr key={unit.id}>
-                                        <td>{unit.id}</td>
-                                        <td>{unit.name}</td>
-                                        <td>
-                                            <label className="toggle-switch">
-                                                <input 
-                                                    type="checkbox"
-                                                    checked={unit.status}
-                                                    onChange={() => toggleStatus(unit.id)}
-                                                />
-                                                <span className="slider round"></span>
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <span className="action-icon">
-                                                <MdEdit size={iconSize}/>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-                <div className="pagination">
+            </div>
+            <div className="pagination">
+                <button 
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    &lt; Previous
+                </button>
+
+                {Array.from({ length: totalPages }, (_, index) => (
                     <button 
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
+                        key={index}
+                        onClick={() => handlePageChange(index + 1)}
+                        className={index + 1 === currentPage ? "active" : ""}
                     >
-                        &lt; Previous
+                        {index + 1}
                     </button>
+                ))}
 
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button 
-                            key={index}
-                            onClick={() => handlePageChange(index + 1)}
-                            className={index + 1 === currentPage ? "active" : ""}
-                        >
-                            {index + 1}
-                        </button>
-                    ))}
-
-                    <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                    >
-                        Next &gt;
-                    </button>
-                </div>
-            </section>
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                >
+                    Next &gt;
+                </button>
+            </div>
+        </section>
     );
 }

@@ -6,12 +6,25 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import Dashboard from './accountComp/dashboard';
 import AccountInformation from './accountComp/accInfo';
 import AddressBook from './accountComp/addressBook';
-import ConfirmationPopup from '../components/confirmationPopup'; // Import the new popup component
-import '../css/Account.css';
+import ConfirmationPopup from '../../components/confirmationPopup'; // Import the new popup component
+import '../../css/Account.css';
+import { User, Address } from '../models/user';
 
 export default function Account() {
     const [selectedSection, setSelectedSection] = useState('dashboard');
     const [isLogoutPopupVisible, setLogoutPopupVisible] = useState(false);
+
+    const initialUserData: User = {
+        id: 1,
+        name: "John Doe",
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        phone: '1234567890',
+        secondaryPhone: '0987654321',
+        dateOfBirth: '1990-01-01',
+        addressBook: [],
+    };
 
     const handleSectionClick = (section: string) => {
         setSelectedSection(section);
@@ -61,7 +74,9 @@ export default function Account() {
 
             <main className='account-main'>
                 {selectedSection === 'dashboard' && <Dashboard />}
-                {selectedSection === 'account-info' && <AccountInformation />}
+                {selectedSection === 'account-info' && (
+                    <AccountInformation initialUserData={initialUserData} />
+                )}
                 {selectedSection === 'address-book' && <AddressBook />}
             </main>
 

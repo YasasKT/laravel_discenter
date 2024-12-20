@@ -1,46 +1,76 @@
-import React, { useState } from 'react';
-import '../../css/Account.css';
-import AddressRow from '../accountComp/addressRow';
-import BillingAddressForm from '../../billing/billingComp/billingAddressFrom';  // Import the form component
+import React, { useEffect, useState } from 'react';
+import '../../../css/Account.css';
+import AddressRow, { AddressRowProps } from '../accountComp/addressRow';
+import BillingAddressForm from '../../billing/billingComp/billingAddressFrom';
+import { User, Address } from '@/app/models/user';
+import { fetchUser, addAddress, deleteAddress } from '@/app/network/account_api';
 
 export default function AddressBook() {
-    const [billingAddresses, setBillingAddresses] = useState([
-        {
-            firstName: 'John',
-            lastName: 'Doe',
-            address: '123 Main St',
-            country: 'Country',
-            province: 'Province',
-            city: 'City',
-            phoneNumber: '123 456 7890',
-            isDefault: true
-        },
-    ]);
-
-    const [shippingAddresses, setShippingAddresses] = useState([
-        {
-            firstName: 'Jane',
-            lastName: 'Doe',
-            address: '456 Elm St',
-            province: 'Province',
-            city: 'City',
-            postalCode: '12345',
-            phoneNumber: '098 765 4321',
-            isDefault: false
-        },
-    ]);
-
+    const [user, setUser] = useState<User | null>(null);
     const [isModalOpen, setModalOpen] = useState(false);
-    const [formType, setFormType] = useState<'billing' | 'shipping'>('billing'); // Manage form type
+    const [formType, setFormType] = useState<'billing' | 'shipping'>('billing');
+    const [loading, setLoading] = useState(true);
 
-    const handleSaveAddress = (newAddress: any) => {
-        if (formType === 'billing') {
-            setBillingAddresses([...billingAddresses, newAddress]);
-        } else {
-            setShippingAddresses([...shippingAddresses, newAddress]);
+    useEffect(() => {
+        const loadUser = async () => {
+            try {
+                const userData = await fetchUser();
+                setUser(userData);
+            } catch (error) {
+                console.error("Failed to load user data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadUser();
+    }, []);
+
+    const handleSaveAddress = async (newAddress: Partial<Address>) => {
+        if (!user) return;
+
+        try {
+            const updatedAddresses = await addAddress({
+                ...newAddress,
+                title: formType === 'billing' ? 'Billing' : 'Shipping',
+            } as Address);
+
+            setUser({ ...user, addressBook: updatedAddresses });
+            setModalOpen(false);
+        } catch (error) {
+            console.error("Failed to save the address:", error);
         }
-        setModalOpen(false);  // Close modal after saving
     };
+
+    const handleDeleteAddress = async (addressId: number) => {
+        if (!user) return;
+
+        try {
+            const updatedAddresses = await deleteAddress(addressId);
+            setUser({ ...user, addressBook: updatedAddresses });
+        } catch (error) {
+            console.error("Failed to delete address: ", error);
+        }
+    };
+
+    const transformAddress = (address: Address): AddressRowProps['address'] => ({
+        id: address.id,
+        firstName: address.firstName || 'N/A',
+        lastName: address.lastName || 'N/A',
+        address: address.address || 'N/A',
+        country: address.country,
+        state: address.state || 'N/A',
+        city: address.city || 'N/A',
+        postalCode: address.postalCode,
+        phoneNumber: address.phoneNumber || 'N/A',
+        isDefault: address.isDefault || false,
+    })
+
+    if (loading) return <p>Loading address book...</p>
+    if (!user) return <p>Failed to load user data.</p>
+
+    const billingAddresses = user.addressBook.filter((address) => address.title === 'Billing');
+    const shippingAddresses = user.addressBook.filter((address) => address.title === 'Shipping');
 
     return (
         <div className='address-book'>
@@ -50,19 +80,31 @@ export default function AddressBook() {
             <section className='default-addresses'>
                 <div className='default-address billing'>
                     <h2>Default Billing Address</h2>
-                    <AddressRow address={billingAddresses[0]} />
+                    {billingAddresses.length > 0 ? (
+                        <AddressRow address={billingAddresses[0]} onDelete={handleDeleteAddress} />
+                    ) : (
+                        <p>No billing address set.</p>
+                    )}
                 </div>
                 <div className='default-address shipping'>
                     <h2>Default Shipping Address</h2>
-                    <AddressRow address={shippingAddresses[0]} />
+                    {shippingAddresses.length > 0 ? (
+                        <AddressRow address={shippingAddresses[0]} onDelete={handleDeleteAddress} />
+                    ) : (
+                        <p>No shipping address set.</p>
+                    )}
                 </div>
             </section>
 
             {/* Billing Addresses Section */}
             <section className='address-section'>
                 <h2>Billing Addresses</h2>
-                {billingAddresses.map((address, index) => (
-                    <AddressRow key={index} address={address} />
+                {billingAddresses.map((address) => (
+                    <AddressRow
+                        key={address.id}
+                        address={address}
+                        onDelete={handleDeleteAddress}
+                    />
                 ))}
                 <button className='add-address-button' onClick={() => {
                     setModalOpen(true);
@@ -75,8 +117,12 @@ export default function AddressBook() {
             {/* Shipping Addresses Section */}
             <section className='address-section'>
                 <h2>Shipping Addresses</h2>
-                {shippingAddresses.map((address, index) => (
-                    <AddressRow key={index} address={address} />
+                {shippingAddresses.map((address) => (
+                    <AddressRow
+                        key={address.id}
+                        address={address}
+                        onDelete={handleDeleteAddress}
+                    />
                 ))}
                 <button className='add-address-button' onClick={() => {
                     setModalOpen(true);
@@ -91,7 +137,8 @@ export default function AddressBook() {
                 <BillingAddressForm
                     onClose={() => setModalOpen(false)}
                     onSave={handleSaveAddress}
-                    formType={formType}  // Pass form type as a prop
+                    formType={formType}
+                    isShippingForm={formType === 'shipping'}
                 />
             )}
         </div>

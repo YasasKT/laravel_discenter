@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ServiceImage from '../../img/home-appliances.jpg'; // Replace with your service-related image
-import '../../css/Hero.css'; // Separate CSS file for service-specific styles
+import ServiceImage from '../../../img/home-appliances.jpg'; // Replace with your service-related image
+import '../../../css/Hero.css'; // Separate CSS file for service-specific styles
 
 const ServiceHeroSection: React.FC = () => {
   const [offsetY, setOffsetY] = useState(0);

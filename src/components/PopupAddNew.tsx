@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "@/css/PopupAddNew.css";
 
 interface PopupNewProps {
@@ -11,6 +11,13 @@ interface PopupNewProps {
     showColorPicker?: boolean;
     showImageUpload?: boolean;
     categories?: string[];
+    initialData?: {
+        name: string;
+        status: boolean;
+        color?: string;
+        image?: string;
+        category?: string;
+    };
 }
 
 const PopupNew: React.FC<PopupNewProps> = ({
@@ -21,13 +28,23 @@ const PopupNew: React.FC<PopupNewProps> = ({
     placeholder,
     showColorPicker = true,
     showImageUpload = false,
-    categories = []
+    categories = [],
+    initialData
 }) => {
-    const [name, setName] = useState("");
-    const [status, setStatus] = useState(true);
-    const [color, setColor] = useState("#ff0000");
+    const [name, setName] = useState(initialData?.name || "");
+    const [status, setStatus] = useState<boolean>(initialData?.status ?? true);
+    const [color, setColor] = useState(initialData?.color || "#ff0000");
     const [image, setImage] = useState<File | null>(null);
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [selectedCategory, setSelectedCategory] = useState<string>(
+        initialData?.category || ""
+    );
+
+    useEffect(() => {
+        if (initialData?.image) {
+            const imageFile = new File([], initialData.image); // Placeholder for initial image
+            setImage(imageFile);
+        }
+    }, [initialData]);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -58,11 +75,11 @@ const PopupNew: React.FC<PopupNewProps> = ({
                         placeholder={placeholder}
                         required
                     />
-    
+
                     {categories.length > 0 && (
-                        <> 
+                        <>
                             <label>Category</label>
-                            <select 
+                            <select
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
                             >
@@ -76,14 +93,14 @@ const PopupNew: React.FC<PopupNewProps> = ({
                         </>
                     )}
 
-                    {showImageUpload && ( // Conditionally render the image upload field
+                    {showImageUpload && (
                         <>
                             <label>Upload Image</label>
                             <input type="file" accept="image/*" onChange={handleImageChange} />
                         </>
                     )}
 
-                    {showColorPicker && ( // Conditionally render the color picker
+                    {showColorPicker && (
                         <>
                             <label>Color</label>
                             <label className="color-picker">
@@ -105,11 +122,14 @@ const PopupNew: React.FC<PopupNewProps> = ({
                         />
                         <span className="slider round"></span>
                     </label>
-
                 </div>
                 <div className="popupAdd-actions">
-                    <button className="cancel-btn" onClick={onClose}>Cancel</button>
-                    <button className="submit-btn" onClick={handleSubmit}>Create</button>
+                    <button className="cancel-btn" onClick={onClose}>
+                        Cancel
+                    </button>
+                    <button className="submit-btn" onClick={handleSubmit}>
+                        {initialData ? "Update" : "Create"}
+                    </button>
                 </div>
             </div>
         </div>

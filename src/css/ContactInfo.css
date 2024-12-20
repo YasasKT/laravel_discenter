@@ -12,8 +12,7 @@
   .top-content {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    max-width: 1200px; /* Limit max width */
+    width: 80%;
     margin-bottom: 2rem;
   }
   

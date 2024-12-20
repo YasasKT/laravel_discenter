@@ -5,6 +5,8 @@ import { MdEdit } from "react-icons/md";
 import PopupAddNew from "@/components/PopupAddNew";
 import '@/css/BrandAdmin.css';
 import { HiMiniPlusCircle } from "react-icons/hi2";
+import { fetchBrands, addBrand, updateBrand, deleteBrand } from "@/app/network/brand_api";
+import { stat } from "fs";
 
 interface Brand {
     id: number;
@@ -13,64 +15,78 @@ interface Brand {
 };
 
 export default function Brands() {
-
-    const [brands, setBrands] = useState<Brand[]>([
-        { id: 1, name: "LG", status: true },
-        { id: 1, name: "LG", status: false },
-        { id: 1, name: "LG", status: true },
-        { id: 1, name: "LG", status: true },
-        { id: 1, name: "LG", status: false },
-    ]);
-
+    const [brands, setBrands] = useState<Brand[]>([]);
     const [showPopup, setShowPopup] = useState(false);
-
-    const addBrand = (name: string, color: string, status: boolean, image?: string) => {
-        const newBrand: Brand = {
-            id: brands.length + 1,
-            name,
-            status
-        };
-        setBrands(prevBrands => [...prevBrands, newBrand]);
-        setShowPopup(false)
-    };
-
-    const handleCreateNew = () => {
-        setShowPopup(true);
-    };
-
-    const toggleStatus = (id: number) => {
-        setBrands(prevBrands => 
-            prevBrands.map(brand => 
-                brand.id === id ? { ...brand, status: !brand.status } : brand
-            )
-        );
-    };
-
-    const [iconSize, setIconSize] = useState(30);
-
-    useEffect(() => {
-        const handleResize = () => {
-            const width = window.innerWidth;
-            if (width <=480) {
-                setIconSize(20);
-            } else if (width <= 768) {
-                setIconSize(24);
-            } else {
-                setIconSize(30);
-            }
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-    }, []);
-
+    const [editBrand, setEditBrand] = useState<Brand | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    const totalPages = Math.ceil(brands.length / itemsPerPage);
+    useEffect(() => {
+        const loadBrands = async () => {
+            try {
+                const data = await fetchBrands();
+                setBrands(data);
+            } catch (error) {
+                console.error("Error fetching brands:", error);
+            }
+        };
 
+        loadBrands();
+    }, []);
+
+    const handleCreateBrand = async (
+        name: string,
+        color: string,
+        status: boolean,
+        image?: string,
+        category?: string
+    ) => {
+        const newBrand: Brand = { id: brands.length + 1, name, status }; // Only use `name` and `status` for now
+        try {
+            const addedBrand = await addBrand(newBrand);
+            setBrands((prevBrands) => [...prevBrands, addedBrand]);
+            setShowPopup(false);
+        } catch (error) {
+            console.error("Error adding brand:", error);
+        }
+    };
+
+    const handleEditBrand = async (id: number, name: string, status: boolean) => {
+        try {
+            const updatedBrand = await updateBrand(id, { name, status });
+            setBrands((prevBrands) => 
+                prevBrands.map((brand) => 
+                    brand.id === id ? { ...brand, name, status } : brand
+                )
+            );
+            setEditBrand(null);
+        } catch (error) {
+            console.error("Error updating brand:", error);
+        }
+    };
+    
+
+    const toggleStatus = async (id: number) => {
+        const brand = brands.find((b) => b.id === id);
+        if (brand) {
+            try {
+                const updatedBrand = await updateBrand(id, { status: !brand.status });
+                if (updatedBrand) {
+                    setBrands((prevBrands) => 
+                        prevBrands.map((b) =>
+                            b.id === id ? { ...b, status: updatedBrand.status } : b
+                        )
+                    );
+                }
+            } catch (error) {
+                console.error("Error updating brand:", error);
+            }
+        }
+    };
+
+    const totalPages = Math.ceil(brands.length / itemsPerPage);
     const currentBrands = brands.slice(
-        (currentPage -1) * itemsPerPage,
+        (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
 
@@ -79,16 +95,6 @@ export default function Brands() {
             setCurrentPage(pageNumber);
         }
     };
-
-    const handleCreateBrand = (name: string, color: string, status: boolean, image?: string) => {
-        console.log("Created brand:", { name, status });
-    };
-
-    const onButtonClick = () => {
-        setShowPopup(!showPopup);
-    };
-
-
     return (
             <section>
                 {showPopup && (
@@ -101,9 +107,25 @@ export default function Brands() {
                     showColorPicker={false}
                 />
                 )}
+                {editBrand && (
+                    <PopupAddNew
+                        onClose={() => setEditBrand(null)}
+                        onCreate={(name, _, status) => 
+                            handleEditBrand(editBrand.id, name, status)
+                        }
+                        title="Edit Brand"
+                        nameLabel="Edit Brand Name"
+                        placeholder="update brand name"
+                        showColorPicker={false}
+                        initialData={{
+                            name: editBrand.name,
+                            status: editBrand.status,
+                        }}
+                    />
+                )}
             <div className="next-text">
           <h2 className="page-label">Manage Brands</h2>
-          <button className="create-new" onClick={onButtonClick}>
+          <button className="create-new" onClick={() => setShowPopup(true)}>
             <span className="new-icon">
               <HiMiniPlusCircle />
             </span>
@@ -141,8 +163,8 @@ export default function Brands() {
                                         </label>
                                     </td>
                                     <td>
-                                        <span className="action-icon">
-                                            <MdEdit size={iconSize}/>
+                                        <span className="action-icon" onClick={() => setEditBrand(brand)}>
+                                            <MdEdit size={30}/>
                                         </span>
                                     </td>
                                 </tr>

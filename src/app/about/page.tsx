@@ -1,7 +1,7 @@
 import React from "react";
 import WhoWeAre from "./aboutComp/whoWeAre";
 import WhyUs from "./aboutComp/whyUs";
-import '../css/AboutUs.css';
+import '../../css/AboutUs.css';
 
 export default function About() {
   return (

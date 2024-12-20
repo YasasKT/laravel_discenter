@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
-import contactImage from '../../img/contact_us.png';
-import '../../css/ContactInfo.css';
+import contactImage from '../../../img/contact_us.png';
+import '../../../css/ContactInfo.css';
 
 const ContactSection: React.FC = () => {
   return (

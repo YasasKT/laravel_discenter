@@ -1,8 +1,10 @@
+"use client"
+
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import CartImage from '../../img/home-appliances.jpg';
-import '../../css/Hero.css';
+import CartImage from '../../../img/home-appliances.jpg';
+import '../../../css/Hero.css';
 
 const CartHero: React.FC = () => {
     const [offsetY, setOffsetY] = useState(0);

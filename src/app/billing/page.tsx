@@ -1,10 +1,11 @@
 "use client"
 import React, { useState } from 'react';
-import '../css/Billing.css'; // Ensure the correct CSS file is imported
+import '../../css/Billing.css'; // Ensure the correct CSS file is imported
 
 import BillingForm from './billingComp/billingAddressFrom';
 import DeliveryMethod from './billingComp/deliveryMeth'; // Ensure correct import path
 import OrderSummary from './billingComp/orderSum'; // Ensure correct import path
+import { Address } from '../models/user';
 
 const CheckoutPage: React.FC = () => {
     const [deliverToDifferentAddress, setDeliverToDifferentAddress] = useState(false);
@@ -20,7 +21,11 @@ const CheckoutPage: React.FC = () => {
                 <h2>Billing Details</h2>
 
                 {/* Billing Form */}
-                <BillingForm isShippingForm={false} />
+                <BillingForm isShippingForm={false} onClose={function (): void {
+                    throw new Error('Function not implemented.');
+                } } onSave={function (newAddress: Partial<Address>): Promise<void> {
+                    throw new Error('Function not implemented.');
+                } } formType={'billing'} />
 
                 {/* Checkbox for different shipping address */}
                 <div className="different-address-checkbox">
@@ -36,7 +41,11 @@ const CheckoutPage: React.FC = () => {
 
                 {/* Shipping form, conditionally rendered if checkbox is checked */}
                 {deliverToDifferentAddress && (
-                    <BillingForm isShippingForm={true} />
+                    <BillingForm isShippingForm={true} onClose={function (): void {
+                        throw new Error('Function not implemented.');
+                    } } onSave={function (newAddress: Partial<Address>): Promise<void> {
+                        throw new Error('Function not implemented.');
+                    } } formType={'billing'} />
                 )}
 
                 {/* Proceed to Checkout Button */}

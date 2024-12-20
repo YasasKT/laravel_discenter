@@ -57,6 +57,15 @@
     font-size: 1.4rem;
 }
 
+.color-preview {
+    width: 40px;
+    height: 24px;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 5%;
+}
+
+
 .subCat-category {
     padding: 1rem;
     background: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);
